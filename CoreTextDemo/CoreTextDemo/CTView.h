@@ -10,5 +10,8 @@
 #import <CoreText/CoreText.h>
 
 @interface CTView : UIScrollView<UIScrollViewDelegate>
-
+@property (assign, nonatomic) float frameXOffset;
+@property (assign, nonatomic) float frameYOffset;
+@property (strong, nonatomic) NSMutableArray *frames;
+- (void)buildFrames;
 @end

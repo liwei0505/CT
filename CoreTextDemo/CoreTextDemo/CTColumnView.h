@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <CoreText/CoreText.h>
 
-@interface CTColumnView : UIScrollView
+@interface CTColumnView : UIView
 @property (assign, nonatomic) CTFrameRef ctFrame;
 @end
