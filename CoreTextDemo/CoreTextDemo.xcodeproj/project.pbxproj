@@ -19,6 +19,7 @@
 		9BCFC3E82060A55800E5E47F /* CTView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCFC3E72060A55800E5E47F /* CTView.m */; };
 		9BCFC3EB2060DF7600E5E47F /* MarkupParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCFC3EA2060DF7600E5E47F /* MarkupParser.m */; };
 		9BCFC3F02061081B00E5E47F /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9BCFC3EF2061081B00E5E47F /* test.txt */; };
+		9BCFC3F32062308300E5E47F /* CTColumnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BCFC3F22062308300E5E47F /* CTColumnView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,8 @@
 		9BCFC3E92060DF7600E5E47F /* MarkupParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkupParser.h; sourceTree = "<group>"; };
 		9BCFC3EA2060DF7600E5E47F /* MarkupParser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkupParser.m; sourceTree = "<group>"; };
 		9BCFC3EF2061081B00E5E47F /* test.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
+		9BCFC3F12062308300E5E47F /* CTColumnView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTColumnView.h; sourceTree = "<group>"; };
+		9BCFC3F22062308300E5E47F /* CTColumnView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTColumnView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +130,8 @@
 				9BCFC3E92060DF7600E5E47F /* MarkupParser.h */,
 				9BCFC3EA2060DF7600E5E47F /* MarkupParser.m */,
 				9BCFC3EF2061081B00E5E47F /* test.txt */,
+				9BCFC3F12062308300E5E47F /* CTColumnView.h */,
+				9BCFC3F22062308300E5E47F /* CTColumnView.m */,
 			);
 			path = CoreTextDemo;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 				9BCFC3C12060A4D800E5E47F /* main.m in Sources */,
 				9BCFC3EB2060DF7600E5E47F /* MarkupParser.m in Sources */,
 				9BCFC3B32060A4D800E5E47F /* AppDelegate.m in Sources */,
+				9BCFC3F32062308300E5E47F /* CTColumnView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
