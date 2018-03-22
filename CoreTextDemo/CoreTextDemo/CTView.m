@@ -22,6 +22,11 @@
     self.frames = nil;
 }
 
+- (void)setAttString:(NSAttributedString *)attString withImages:(NSArray *)imgs {
+    self.attriStr = attString;
+    self.images = imgs;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
 //    UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(50, 100, 200, 50)];

@@ -8,6 +8,22 @@
 
 #import "MarkupParser.h"
 
+static void deallocCallback(void *ref) {
+    ref = nil;
+}
+
+static CGFloat ascentCallback(void *ref) {
+    return [(NSString *)[(__bridge NSDictionary *)ref objectForKey:@"height"] floatValue];
+}
+
+static CGFloat descentCallback(void *ref) {
+    return [(NSString *)[(NSDictionary *)CFBridgingRelease(ref) objectForKey:@"descent"] floatValue];
+}
+
+static CGFloat widthCallback(void *ref) {
+    return [(NSString *)[(__bridge NSDictionary *)ref objectForKey:@"width"] floatValue];
+}
+
 @implementation MarkupParser
 - (instancetype)init {
     if (self = [super init]) {
@@ -65,9 +81,55 @@
                     self.font = [tag substringWithRange:result.range];
                 }];
             }//end of font parsing
+            
+            if ([tag hasPrefix:@"img"]) {
+                __block NSNumber *width = [NSNumber numberWithInt:0];
+                __block NSNumber *height = [NSNumber numberWithInt:0];
+                __block NSString *fileName = @"";
+                
+                //width
+                NSRegularExpression *widthRegex = [[NSRegularExpression alloc] initWithPattern:@"(?<=width=\")[^\"]+" options:0 error:NULL];
+                [widthRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, tag.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+                   
+                    width = [NSNumber numberWithInt:[[tag substringWithRange:result.range] intValue]];
+                }];
+                
+                //height
+                NSRegularExpression *heightRegex = [[NSRegularExpression alloc] initWithPattern:@"(?<=height=\")[^\"]+" options:0 error:NULL];
+                [heightRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, tag.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+                   
+                    height = [NSNumber numberWithInt:[[tag substringWithRange:result.range] intValue]];
+                }];
+                
+                //image
+                NSRegularExpression *srcRegex = [[NSRegularExpression alloc] initWithPattern:@"" options:0 error:NULL];
+                [srcRegex enumerateMatchesInString:tag options:0 range:NSMakeRange(0, tag.length) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
+                   
+                    fileName = [tag substringWithRange:result.range];
+                }];
+                
+                //add image for drawing
+                [self.images addObject:[NSDictionary dictionaryWithObjectsAndKeys:width,@"width",height,@"height",fileName,@"fileName",[NSNumber numberWithInt:(int)aString.length],@"location", nil]];
+                
+                //render empty space for drawing the image in the text
+                CTRunDelegateCallbacks callbacks;
+                callbacks.version = kCTRunDelegateVersion1;
+                callbacks.getAscent = ascentCallback;
+                callbacks.getDescent = descentCallback;
+                callbacks.getWidth = widthCallback;
+                callbacks.dealloc = deallocCallback;
+                
+                NSDictionary *imgAttr = [NSDictionary dictionaryWithObjectsAndKeys:width,@"width",height,@"height", nil];
+                CTRunDelegateRef delegate = CTRunDelegateCreate(&callbacks, (__bridge void * _Nullable)(imgAttr));
+                NSDictionary *attrDictionaryDelegate = [NSDictionary dictionaryWithObjectsAndKeys:(__bridge id)delegate,(NSString *)kCTRunDelegateAttributeName, nil];
+                
+                //add a space to the text so that it can call the delegate
+                [aString appendAttributedString:[[NSAttributedString alloc] initWithString:@" " attributes:attrDictionaryDelegate]];
+                
+            }
+            
         }
     }
-    
     
     return aString;
 }

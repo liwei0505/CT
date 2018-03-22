@@ -13,5 +13,7 @@
 @property (assign, nonatomic) float frameXOffset;
 @property (assign, nonatomic) float frameYOffset;
 @property (strong, nonatomic) NSMutableArray *frames;
+@property (strong, nonatomic) NSArray *images;
 - (void)buildFrames;
+- (void)setAttString:(NSAttributedString *)attString withImages:(NSArray *)imgs;
 @end
