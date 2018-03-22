@@ -10,5 +10,6 @@
 #import <CoreText/CoreText.h>
 
 @interface CTView : UIScrollView<UIScrollViewDelegate>
-
+@property (strong, nonatomic) NSArray *images;
+- (void)setAttString:(NSAttributedString *)attString withImages:(NSArray *)imgs;
 @end
